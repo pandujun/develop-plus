@@ -99,18 +99,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!--nacos-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <optional>true</optional>
-        </dependency>
-
     </dependencies>
 
     <dependencyManagement>
