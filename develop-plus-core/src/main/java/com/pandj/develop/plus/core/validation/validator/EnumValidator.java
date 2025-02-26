@@ -1,7 +1,7 @@
-package com.pandj.develop.plus.web.annotation.validator;
+package com.pandj.develop.plus.core.validation.validator;
 
-import com.pandj.develop.plus.web.annotation.EnumValid;
-import com.pandj.develop.plus.web.annotation.ValidEnum;
+import com.pandj.develop.plus.core.validation.annotation.EnumValid;
+import com.pandj.develop.plus.core.validation.annotation.ValidEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
