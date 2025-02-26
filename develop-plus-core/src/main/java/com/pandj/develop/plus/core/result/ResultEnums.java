@@ -27,6 +27,7 @@ public enum ResultEnums implements ResultException {
     ENABLE_UPDATE_ILLEGAL(609, "启用中,不可编辑"),
     SECURE_ERROR(610, "加解密失败"),
     CHANGE_ERROR(611, "转换失败"),
+    WRITE_ERROR(612, "写入失败"),
     HTTP_ERROR(700, "请求异常");
 
     private final int code;
