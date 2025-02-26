@@ -2,6 +2,7 @@ package com.pandj.develop.plus.web.utils;
 
 import cn.idev.excel.FastExcel;
 import com.pandj.develop.plus.core.constant.ContentTypeConstant;
+import com.pandj.develop.plus.core.result.ResultEnums;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,8 @@ public class ExcelUtils {
                     .sheet("sheet1")
                     .doWrite(list);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.error("ExcelUtils#exportExcel ERROR：{ }", e);
+            throw ResultEnums.WRITE_ERROR.getException();
         }
     }
 }
