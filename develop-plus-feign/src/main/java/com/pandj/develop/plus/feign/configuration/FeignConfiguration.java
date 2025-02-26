@@ -1,4 +1,4 @@
-package com.pandj.develop.plus.web.configuration;
+package com.pandj.develop.plus.feign.configuration;
 
 import com.pandj.develop.plus.core.constant.HeaderIgnoreAutoPackageConstant;
 import feign.RequestInterceptor;

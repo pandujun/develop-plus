@@ -15,6 +15,7 @@
     <modules>
         <module>develop-plus-core</module>
         <module>develop-plus-web</module>
+        <module>develop-plus-feign</module>
     </modules>
 
     <build>

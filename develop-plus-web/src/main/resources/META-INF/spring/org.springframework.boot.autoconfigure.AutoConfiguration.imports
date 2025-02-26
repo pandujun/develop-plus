@@ -1,4 +1,3 @@
 com.pandj.develop.plus.web.configuration.CommonConfiguration
 com.pandj.develop.plus.web.configuration.MybatisPlusConfiguration
-com.pandj.develop.plus.web.configuration.FeignConfiguration
 com.pandj.develop.plus.web.configuration.RedisConfiguration

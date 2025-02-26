@@ -60,13 +60,6 @@
             <version>${develop-plus-core.version}</version>
         </dependency>
 
-        <!-- Feign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
