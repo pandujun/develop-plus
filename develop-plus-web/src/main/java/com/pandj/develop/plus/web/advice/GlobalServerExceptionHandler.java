@@ -1,9 +1,9 @@
 package com.pandj.develop.plus.web.advice;
 
+import com.pandj.develop.plus.core.constant.HeaderIgnoreAutoPackageConstant;
 import com.pandj.develop.plus.core.result.BusinessException;
 import com.pandj.develop.plus.core.result.Result;
 import com.pandj.develop.plus.core.result.ResultEnums;
-import com.pandj.develop.plus.web.constant.HeaderIgnoreAutoPackageConstant;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;

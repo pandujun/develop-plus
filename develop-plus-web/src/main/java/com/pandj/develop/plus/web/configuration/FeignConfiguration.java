@@ -1,6 +1,6 @@
 package com.pandj.develop.plus.web.configuration;
 
-import com.pandj.develop.plus.web.constant.HeaderIgnoreAutoPackageConstant;
+import com.pandj.develop.plus.core.constant.HeaderIgnoreAutoPackageConstant;
 import feign.RequestInterceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
