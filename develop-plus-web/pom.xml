@@ -23,11 +23,20 @@
         <develop-plus-core.version>1.0.0-SNAPSHOT</develop-plus-core.version>
 
         <!--外部工具-->
+        <fastexcel.version>1.1.0</fastexcel.version>
         <pingyin4j.version>2.5.1</pingyin4j.version>
         <xstream.version>1.4.21</xstream.version>
     </properties>
 
     <dependencies>
+        <!--fastexcel-->
+        <dependency>
+            <groupId>cn.idev.excel</groupId>
+            <artifactId>fastexcel</artifactId>
+            <version>1.1.0</version>
+            <optional>true</optional>
+        </dependency>
+
         <!--中文转拼音-->
         <dependency>
             <groupId>com.belerweb</groupId>
