@@ -1,8 +1,8 @@
 package com.pandj.develop.plus.web.bo;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
@@ -20,7 +20,8 @@ public class PageParam<T extends PageParam<T>> implements Serializable {
     protected Integer pageNum;
 
     @NotNull(message = "Size Not Null")
-    @Size(min = 1, max = 100, message = "Size Between 1-100")
+    @Min(value = 1, message = "Size Between 1-100")
+    @Max(value = 100, message = "Size Between 1-100")
     protected Integer pageSize;
 
     public Integer getPageNum() {
