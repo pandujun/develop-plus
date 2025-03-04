@@ -60,14 +60,14 @@ public class ExcelUtils {
     /**
      * 导入文件
      *
-     * @param file      导入文件
-     * @param clazz     导入文件的接收对象class
-     * @param toSaveMap 接收对象class转换为保存的对象
-     * @param consumer  保存方法
-     * @param <T>       接收对象
-     * @param <R>       保存对象
+     * @param file              导入文件
+     * @param clazz             导入文件的接收对象class
+     * @param convertFunction   接收对象class转换为保存的对象
+     * @param consumer          保存方法
+     * @param <T>               接收对象
+     * @param <R>               保存对象
      */
-    public static <T, R> void importExcel(MultipartFile file, Class<T> clazz, Function<T, R> toSaveMap, Consumer<List<R>> consumer) {
+    public static <T, R> void importExcel(MultipartFile file, Class<T> clazz, Function<T, R> convertFunction, Consumer<List<R>> consumer) {
         //校验suffix
         checkSuffix(file);
         try {
@@ -88,7 +88,7 @@ public class ExcelUtils {
 
                 @Override
                 public void invoke(T object, AnalysisContext analysisContext) {
-                    R saveOne = toSaveMap.apply(object);
+                    R saveOne = convertFunction.apply(object);
                     saveList.add(saveOne);
                     if (saveList.size() >= BATCH_COUNT) {
                         consumer.accept(saveList);
