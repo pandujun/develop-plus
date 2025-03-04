@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>develop-plus-feign</artifactId>
+    <version>${develop-plus-feign.version}</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -17,8 +18,6 @@
         <spring-boot.version>3.2.4</spring-boot.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
 
-        <!--内部服务-->
-        <develop-plus-core.version>1.0.0-SNAPSHOT</develop-plus-core.version>
     </properties>
 
     <dependencies>
@@ -39,7 +38,6 @@
         <dependency>
             <groupId>com.pandj</groupId>
             <artifactId>develop-plus-core</artifactId>
-            <version>${develop-plus-core.version}</version>
         </dependency>
     </dependencies>
 

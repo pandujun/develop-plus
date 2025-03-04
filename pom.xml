@@ -10,6 +10,11 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!--内部服务-->
+        <develop-plus-core.version>1.0.0-SNAPSHOT</develop-plus-core.version>
+        <develop-plus-feign.version>1.0.0-SNAPSHOT</develop-plus-feign.version>
+        <develop-plus-web.version>1.0.0-SNAPSHOT</develop-plus-web.version>
     </properties>
 
     <modules>
@@ -17,6 +22,29 @@
         <module>develop-plus-web</module>
         <module>develop-plus-feign</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--核心服务-->
+            <dependency>
+                <groupId>com.pandj</groupId>
+                <artifactId>develop-plus-core</artifactId>
+                <version>${develop-plus-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pandj</groupId>
+                <artifactId>develop-plus-feign</artifactId>
+                <version>${develop-plus-feign.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pandj</groupId>
+                <artifactId>develop-plus-web</artifactId>
+                <version>${develop-plus-web.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
