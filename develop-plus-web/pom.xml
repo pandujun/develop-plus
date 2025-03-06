@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.pandj</groupId>
+        <groupId>io.github.pandujun</groupId>
         <artifactId>develop-plus</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -53,13 +53,19 @@
 
         <!--核心服务-->
         <dependency>
-            <groupId>com.pandj</groupId>
+            <groupId>io.github.pandujun</groupId>
             <artifactId>develop-plus-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.pandj</groupId>
+            <groupId>io.github.pandujun</groupId>
             <artifactId>develop-plus-feign</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-io</artifactId>
+                    <groupId>commons-io</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--redis-->
