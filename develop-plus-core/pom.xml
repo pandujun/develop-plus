@@ -9,6 +9,8 @@
 
     <artifactId>develop-plus-core</artifactId>
     <version>${develop-plus-core.version}</version>
+    <description>develop-plus-core</description>
+    <url>https://github.com/pandujun/develop-plus.git</url>
 
     <properties>
         <java.version>17</java.version>

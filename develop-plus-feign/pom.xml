@@ -9,6 +9,8 @@
 
     <artifactId>develop-plus-feign</artifactId>
     <version>${develop-plus-feign.version}</version>
+    <description>develop-plus-feign</description>
+    <url>https://github.com/pandujun/develop-plus.git</url>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
