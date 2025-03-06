@@ -156,7 +156,7 @@ public class RedisBean {
     /**
      * 删除set缓存当中的数据
      */
-    public Long deleteSetValue(String key, String... values) {
+    public Long deleteSetValue(String key, Object... values) {
         return redisTemplate.opsForSet().remove(key, values);
     }
 }
