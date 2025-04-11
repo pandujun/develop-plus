@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.pandujun</groupId>
     <artifactId>develop-plus</artifactId>
-    <version>1.0.0.RELEASE</version>
+    <version>1.0.1.RELEASE</version>
     <description>develop-plus</description>
     <url>https://github.com/pandujun/develop-plus.git</url>
     <packaging>pom</packaging>
@@ -41,9 +41,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!--内部服务-->
-        <develop-plus-core.version>1.0.0.RELEASE</develop-plus-core.version>
-        <develop-plus-feign.version>1.0.0.RELEASE</develop-plus-feign.version>
-        <develop-plus-web.version>1.0.0.RELEASE</develop-plus-web.version>
+        <develop-plus-core.version>1.0.1.RELEASE</develop-plus-core.version>
+        <develop-plus-feign.version>1.0.1.RELEASE</develop-plus-feign.version>
+        <develop-plus-web.version>1.0.1.RELEASE</develop-plus-web.version>
     </properties>
 
     <modules>

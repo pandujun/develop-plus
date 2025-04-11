@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.github.pandujun</groupId>
         <artifactId>develop-plus</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.1.RELEASE</version>
     </parent>
 
     <artifactId>develop-plus-core</artifactId>
@@ -20,7 +20,7 @@
         <!--通用工具类-->
         <gson.version>2.11.0</gson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <spring-boot.version>3.2.4</spring-boot.version>
+        <validation-api.version>3.0.2</validation-api.version>
     </properties>
 
     <dependencies>
@@ -40,21 +40,9 @@
 
         <!--参数校验-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-            <optional>true</optional>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${validation-api.version}</version>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

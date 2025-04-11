@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.github.pandujun</groupId>
         <artifactId>develop-plus</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.1.RELEASE</version>
     </parent>
 
     <artifactId>develop-plus-web</artifactId>
@@ -26,6 +26,7 @@
         <fastexcel.version>1.1.0</fastexcel.version>
         <pingyin4j.version>2.5.1</pingyin4j.version>
         <xstream.version>1.4.21</xstream.version>
+        <fastexcel.version>1.1.0</fastexcel.version>
     </properties>
 
     <dependencies>
@@ -33,7 +34,7 @@
         <dependency>
             <groupId>cn.idev.excel</groupId>
             <artifactId>fastexcel</artifactId>
-            <version>1.1.0</version>
+            <version>${fastexcel.version}</version>
             <optional>true</optional>
         </dependency>
 
