@@ -1,11 +1,14 @@
 package io.github.pandujun.develop.plus.web.utils;
 
+import cn.idev.excel.EasyExcel;
 import cn.idev.excel.FastExcel;
 import cn.idev.excel.annotation.ExcelProperty;
 import cn.idev.excel.context.AnalysisContext;
 import cn.idev.excel.metadata.data.ReadCellData;
 import cn.idev.excel.read.listener.ReadListener;
 import cn.idev.excel.util.ListUtils;
+import cn.idev.excel.write.builder.ExcelWriterSheetBuilder;
+import cn.idev.excel.write.handler.WriteHandler;
 import io.github.pandujun.develop.plus.core.constant.CommonSymbolConstant;
 import io.github.pandujun.develop.plus.core.constant.ContentTypeConstant;
 import io.github.pandujun.develop.plus.core.result.ResultEnums;
@@ -33,17 +36,27 @@ public class ExcelUtils {
 
     /**
      * 导出excel
+     *
+     * @param response 响应流
+     * @param fileName 文件名称
+     * @param clazz 数据类型class
+     * @param list 导出数据
+     * @param sheetName sheet名称
+     * @param writeHandler 写入拦截器
      */
-    public static void exportExcel(HttpServletResponse response, String fileName, Class<?> clazz, List<?> list, String sheetName) {
+    public static void exportExcel(HttpServletResponse response, String fileName, Class<?> clazz, List<?> list, String sheetName, WriteHandler writeHandler) {
         response.setContentType(ContentTypeConstant.CONTENT_TYPE_EXCEL);
         response.setCharacterEncoding(ContentTypeConstant.ENCODE_UTF_8);
         fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
         response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
 
         try {
-            FastExcel.write(response.getOutputStream(), clazz)
-                    .sheet(sheetName)
-                    .doWrite(CollectionUtils.isEmpty(list) ? Collections.emptyList() : list);
+            ExcelWriterSheetBuilder excelWriterSheetBuilder = EasyExcel.write(response.getOutputStream(), clazz)
+                    .sheet(sheetName);
+            if (Objects.nonNull(writeHandler)) {
+                excelWriterSheetBuilder.registerWriteHandler(writeHandler);
+            }
+            excelWriterSheetBuilder.doWrite(CollectionUtils.isEmpty(list) ? Collections.emptyList() : list);
         } catch (IOException e) {
             logger.error("ExcelUtils#exportExcel ERROR：{ }", e);
             throw ResultEnums.WRITE_ERROR.getException();
@@ -52,10 +65,29 @@ public class ExcelUtils {
 
     /**
      * 导出excel
+     *
+     * @param response     响应流
+     * @param fileName     文件名称
+     * @param clazz        数据类型class
+     * @param list         导出数据
+     * @param writeHandler 写入拦截器
+     */
+    public static void exportExcel(HttpServletResponse response, String fileName, Class<?> clazz, List<?> list, WriteHandler writeHandler) {
+        exportExcel(response, fileName, clazz, list, "sheet1", writeHandler);
+    }
+
+    /**
+     * 导出excel
+     *
+     * @param response 响应流
+     * @param fileName 文件名称
+     * @param clazz 数据类型class
+     * @param list 导出数据
      */
     public static void exportExcel(HttpServletResponse response, String fileName, Class<?> clazz, List<?> list) {
-        exportExcel(response, fileName, clazz, list, "sheet1");
+        exportExcel(response, fileName, clazz, list, "sheet1", null);
     }
+
 
     /**
      * 导入文件
