@@ -161,7 +161,7 @@ public class ExcelUtils {
      */
     private static void checkSuffix(MultipartFile file) {
         if (Objects.isNull(file)) {
-            throw ResultEnums.DATA_DOES_NOT_EXIST.getException("传入的文件不能为空");
+            throw ResultEnums.DATA_NOT_EXIST.getException("传入的文件不能为空");
         }
         String filename = file.getOriginalFilename();
         String suffix = "无";
