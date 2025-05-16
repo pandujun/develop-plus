@@ -17,7 +17,7 @@ public enum ResultEnums implements ResultException {
     TOO_MANY_REQUESTS(429, "系统繁忙,请稍后再试"),
     INTERNAL_SERVER_ERROR(500, "内部错误,请稍后再试"),
     PARAM_ERROR(601, "参数异常"),
-    DATA_DOES_NOT_EXIST(602, "数据不存在"),
+    DATA_NOT_EXIST(602, "数据不存在"),
     DATA_IS_EXIST(603, "数据已存在,请勿重复"),
     FILE_NOT_SUPPORT(604, "不支持的文件格式"),
     FILE_UPLOAD_ERROR(605, "文件上传失败,请稍后再试"),
