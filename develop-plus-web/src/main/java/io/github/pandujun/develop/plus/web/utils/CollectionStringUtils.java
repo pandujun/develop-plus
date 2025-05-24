@@ -27,7 +27,7 @@ public class CollectionStringUtils {
      * @return list集合
      */
     public static List<String> toList(String text) {
-        return toList(text, CommonSymbolConstant.COMMA);
+        return toList(text, CommonSymbolConstant.COMMA_E);
     }
 
     /**
@@ -48,7 +48,7 @@ public class CollectionStringUtils {
      * @return set集合
      */
     public static Set<String> toSet(String text) {
-        return toSet(text, CommonSymbolConstant.COMMA);
+        return toSet(text, CommonSymbolConstant.COMMA_E);
     }
 
 
@@ -70,7 +70,7 @@ public class CollectionStringUtils {
      * @return 返回字符串
      */
     public static <E> String toStr(Collection<E> collection) {
-        return toStr(collection, CommonSymbolConstant.COMMA);
+        return toStr(collection, CommonSymbolConstant.COMMA_E);
     }
 
     /**
