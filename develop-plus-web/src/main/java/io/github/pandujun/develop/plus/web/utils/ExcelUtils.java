@@ -11,6 +11,8 @@ import cn.idev.excel.write.builder.ExcelWriterSheetBuilder;
 import cn.idev.excel.write.handler.WriteHandler;
 import io.github.pandujun.develop.plus.core.constant.CommonSymbolConstant;
 import io.github.pandujun.develop.plus.core.constant.ContentTypeConstant;
+import io.github.pandujun.develop.plus.core.constant.FileSuffixConstant;
+import io.github.pandujun.develop.plus.core.constant.NumberConstant;
 import io.github.pandujun.develop.plus.core.result.ResultEnums;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -32,7 +34,9 @@ import java.util.function.Function;
 
 public class ExcelUtils {
     private static final Logger logger = LoggerFactory.getLogger(ExcelUtils.class);
-    private static final List<String> EXCEL_SUFFIX_LIST = List.of(".xls", ".xlsx");
+    private static final List<String> EXCEL_SUFFIX_LIST = List.of(
+            CommonSymbolConstant.DOT + FileSuffixConstant.EXCEL_XLS,
+            CommonSymbolConstant.DOT + FileSuffixConstant.EXCEL_XLSX);
 
     /**
      * 导出excel
@@ -48,7 +52,7 @@ public class ExcelUtils {
         response.setContentType(ContentTypeConstant.CONTENT_TYPE_EXCEL);
         response.setCharacterEncoding(ContentTypeConstant.ENCODE_UTF_8);
         fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
-        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        response.setHeader(ContentTypeConstant.HEADER_CONTENT_DISPOSITION, "attachment;filename=''" + fileName + CommonSymbolConstant.DOT + FileSuffixConstant.EXCEL_XLSX);
 
         try {
             ExcelWriterSheetBuilder excelWriterSheetBuilder = EasyExcel.write(response.getOutputStream(), clazz)
@@ -58,7 +62,7 @@ public class ExcelUtils {
             }
             excelWriterSheetBuilder.doWrite(CollectionUtils.isEmpty(list) ? Collections.emptyList() : list);
         } catch (IOException e) {
-            logger.error("ExcelUtils#exportExcel ERROR：{ }", e);
+            logger.error("ExcelUtils#exportExcel ERROR：", e);
             throw ResultEnums.WRITE_ERROR.getException();
         }
     }
@@ -107,7 +111,7 @@ public class ExcelUtils {
                 /**
                  * 单次缓存的数据量
                  */
-                public static final int BATCH_COUNT = 100;
+                public static final int BATCH_COUNT = NumberConstant.HUNDRED_NUM;
                 /**
                  *临时存储
                  */
@@ -134,7 +138,7 @@ public class ExcelUtils {
                 }
             }).sheet().doRead();
         } catch (IOException e) {
-            logger.error("ExcelUtils#importExcel ERROR：{ }", e);
+            logger.error("ExcelUtils#importExcel ERROR：", e);
             throw ResultEnums.FILE_UPLOAD_ERROR.getException();
         }
     }
@@ -155,7 +159,7 @@ public class ExcelUtils {
                 /**
                  * 单次缓存的数据量
                  */
-                public static final int BATCH_COUNT = 100;
+                public static final int BATCH_COUNT = NumberConstant.HUNDRED_NUM;
                 /**
                  *临时存储
                  */
@@ -181,7 +185,7 @@ public class ExcelUtils {
                 }
             }).sheet().doRead();
         } catch (IOException e) {
-            logger.error("ExcelUtils#importExcel ERROR：{ }", e);
+            logger.error("ExcelUtils#importExcel ERROR：", e);
             throw ResultEnums.FILE_UPLOAD_ERROR.getException();
         }
     }
@@ -193,7 +197,7 @@ public class ExcelUtils {
      */
     private static void checkSuffix(MultipartFile file) {
         if (Objects.isNull(file)) {
-            throw ResultEnums.DATA_DOES_NOT_EXIST.getException("传入的文件不能为空");
+            throw ResultEnums.DATA_NOT_EXIST.getException("传入的文件不能为空");
         }
         String filename = file.getOriginalFilename();
         String suffix = "无";
@@ -233,9 +237,9 @@ public class ExcelUtils {
         List<String> headers = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
             ExcelProperty annotation = field.getAnnotation(ExcelProperty.class);
-            if (annotation != null && annotation.value().length > 0) {
+            if (annotation != null && annotation.value().length > NumberConstant.ZERO_NUM) {
                 // 取@ExcelProperty的第一个值作为表头
-                headers.add(annotation.value()[0]);
+                headers.add(annotation.value()[NumberConstant.ZERO_NUM]);
             }
         }
         return headers;

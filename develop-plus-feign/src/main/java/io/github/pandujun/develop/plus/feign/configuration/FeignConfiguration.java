@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -46,7 +47,7 @@ public class FeignConfiguration {
 //                }
 
                 // 微服务之间传递的唯一标识,区分大小写所以通过httpServletRequest获取
-                if (request.getHeader(HeaderIgnoreAutoPackageConstant.FEIGN_TAG) == null) {
+                if (Objects.isNull(request.getHeader(HeaderIgnoreAutoPackageConstant.FEIGN_TAG))) {
                     String sid = String.valueOf(UUID.randomUUID());
                     requestTemplate.header(HeaderIgnoreAutoPackageConstant.FEIGN_TAG, sid);
                 }

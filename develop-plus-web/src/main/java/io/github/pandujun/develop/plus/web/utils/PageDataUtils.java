@@ -1,5 +1,6 @@
 package io.github.pandujun.develop.plus.web.utils;
 
+import io.github.pandujun.develop.plus.core.constant.NumberConstant;
 import io.github.pandujun.develop.plus.web.bo.PageInfo;
 import org.springframework.util.CollectionUtils;
 
@@ -28,7 +29,7 @@ public class PageDataUtils<E> {
         PageInfo<T> pageInfo = new PageInfo<>(pageNum, pageSize);
         if (!CollectionUtils.isEmpty(dataCollection)) {
             int totalNum = dataCollection.size();
-            long skipNumber = (pageNum - 1L) * pageSize;
+            long skipNumber = (pageNum - NumberConstant.ONE_NUM) * pageSize;
             if (skipNumber < totalNum) {
                 pageInfo.setList(dataCollection.stream().skip(skipNumber).limit(pageSize).collect(Collectors.toList()));
             } else {
@@ -36,7 +37,7 @@ public class PageDataUtils<E> {
             }
             return pageInfo
                     .setTotal(totalNum)
-                    .setPages(totalNum % pageSize > 0 ? (totalNum / pageSize) + 1 : totalNum / pageSize);
+                    .setPages(totalNum % pageSize > NumberConstant.ZERO_NUM ? (totalNum / pageSize) + NumberConstant.ONE_NUM : totalNum / pageSize);
         } else {
             return pageInfo.getEmpty();
         }
