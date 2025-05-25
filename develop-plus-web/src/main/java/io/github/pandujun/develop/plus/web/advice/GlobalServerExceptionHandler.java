@@ -32,7 +32,7 @@ public class GlobalServerExceptionHandler {
     public <E> Result<E> handleBusinessException(BusinessException ex,
                                                  HttpServletRequest request,
                                                  HttpServletResponse response) {
-        logger.error("GlobalServerExceptionHandler#BusinessException:{ }", ex);
+        logger.error("GlobalServerExceptionHandler#BusinessException：", ex);
         exceptionExtend(request, response);
         return Result.error(ResultEnums.getMapCode(ex.getCode()), ex.getMsg());
     }
@@ -44,7 +44,7 @@ public class GlobalServerExceptionHandler {
     public <E> Result<E> handleValidException(MethodArgumentNotValidException ex,
                                               HttpServletRequest request,
                                               HttpServletResponse response) {
-        logger.error("GlobalServerExceptionHandler#MethodArgumentNotValidException:{ }", ex);
+        logger.error("GlobalServerExceptionHandler#MethodArgumentNotValidException：", ex);
         exceptionExtend(request, response);
         String errorMsg;
         List<ObjectError> errors = ex.getBindingResult().getAllErrors();
@@ -64,7 +64,7 @@ public class GlobalServerExceptionHandler {
     public <E> Result<E> handleHttpRequestMethodNotSupportedException(
             HttpRequestMethodNotSupportedException ex,
             HttpServletRequest request) throws HttpRequestMethodNotSupportedException {
-        logger.error("GlobalServerExceptionHandler#HttpRequestMethodNotSupportedException URI:{}, { }", request.getRequestURI(), ex);
+        logger.error("GlobalServerExceptionHandler#HttpRequestMethodNotSupportedException URI：{}, EX：", request.getRequestURI(), ex);
         throw ex;
     }
 
@@ -75,7 +75,7 @@ public class GlobalServerExceptionHandler {
     public <E> Result<E> handleException(Exception ex,
                                          HttpServletRequest request,
                                          HttpServletResponse response) {
-        logger.error("GlobalServerExceptionHandler#Other Exception Message: { }", ex);
+        logger.error("GlobalServerExceptionHandler#Other Exception Message: ", ex);
         exceptionExtend(request, response);
         return Result.error(ResultEnums.INTERNAL_SERVER_ERROR);
     }

@@ -1,5 +1,6 @@
 package io.github.pandujun.develop.plus.core.utils;
 
+import io.github.pandujun.develop.plus.core.constant.CommonSymbolConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ public class AnalysisUtils {
      * @return key:字段名；value:字段名对应数据
      */
     public static Map<String, String> analysisClassParam(Object obj) {
-        return analysisClassParam(obj, "", "");
+        return analysisClassParam(obj, CommonSymbolConstant.EMPTY_STR, CommonSymbolConstant.EMPTY_STR);
     }
 
     /**
@@ -48,9 +49,9 @@ public class AnalysisUtils {
                 field.setAccessible(true); // 确保可以访问私有字段
                 Object value = field.get(obj);
                 String key = firstPrefix + field.getName() + endPrefix;
-                map.put(key, (value != null) ? value.toString() : "");
+                map.put(key, (value != null) ? value.toString() : CommonSymbolConstant.EMPTY_STR);
             } catch (IllegalAccessException e) {
-                logger.error("AnalysisUtils#analysisClassParam ERROR：{ }", e);
+                logger.error("AnalysisUtils#analysisClassParam ERROR：", e);
                 // 处理异常，例如记录日志或返回空Map
                 return Collections.emptyMap();
             }

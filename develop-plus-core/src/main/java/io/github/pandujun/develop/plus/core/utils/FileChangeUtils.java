@@ -1,5 +1,7 @@
 package io.github.pandujun.develop.plus.core.utils;
 
+import io.github.pandujun.develop.plus.core.constant.CommonSymbolConstant;
+import io.github.pandujun.develop.plus.core.constant.FileSuffixConstant;
 import io.github.pandujun.develop.plus.core.result.ResultEnums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +31,13 @@ public class FileChangeUtils {
      */
     public static String getImageBASE64(BufferedImage image) {
         try (ByteArrayOutputStream bao = new ByteArrayOutputStream()) {
-            ImageIO.write(image, "png", bao);
+            ImageIO.write(image, FileSuffixConstant.IMAGE_PNG, bao);
             byte[] imageData = bao.toByteArray();
             String baseImage = Base64.getEncoder().encodeToString(imageData);
-            baseImage = baseImage.replaceAll("\\s+", "");
+            baseImage = baseImage.replaceAll("\\s+", CommonSymbolConstant.EMPTY_STR);
             return baseImage;
         } catch (IOException e) {
-            logger.error("FileChangeUtils#getImageBASE64 ERROR：{ }", e);
+            logger.error("FileChangeUtils#getImageBASE64 ERROR：", e);
             throw ResultEnums.CHANGE_ERROR.getException();
         }
     }
@@ -52,12 +54,12 @@ public class FileChangeUtils {
         // 将 Base64 字符串解码为字节数组
         byte[] decodedBytes = Base64.getDecoder().decode(base64);
         // 创建文件输出流
-        try (FileOutputStream outputStream = new FileOutputStream(fileName + "." + fileFormat)) {
+        try (FileOutputStream outputStream = new FileOutputStream(fileName + CommonSymbolConstant.DOT + fileFormat)) {
             // 将字节数组写入文件输出流
             outputStream.write(decodedBytes);
             return outputStream;
         } catch (IOException e) {
-            logger.error("FileChangeUtils#getFile ERROR：{ }", e);
+            logger.error("FileChangeUtils#getFile ERROR：", e);
             throw ResultEnums.CHANGE_ERROR.getException();
         }
     }

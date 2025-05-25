@@ -81,7 +81,7 @@ public class CollectionStringUtils {
      * @return 返回字符串
      */
     public static <E> String toStr(Collection<E> collection, String delimiter) {
-        return !CollectionUtils.isEmpty(collection) ? collection.stream().map(String::valueOf).collect(Collectors.joining(delimiter)) : "";
+        return !CollectionUtils.isEmpty(collection) ? collection.stream().map(String::valueOf).collect(Collectors.joining(delimiter)) : CommonSymbolConstant.EMPTY_STR;
     }
 
 }

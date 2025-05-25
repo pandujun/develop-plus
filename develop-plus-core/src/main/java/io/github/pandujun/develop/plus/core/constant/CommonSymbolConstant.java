@@ -87,4 +87,19 @@ public class CommonSymbolConstant {
      * 右括号(中文)
      */
     public static final String RIGHT_BRACKET_C = "）";
+
+    /**
+     * 分号(英文)
+     */
+    public static final String SEMICOLON_E = ";";
+
+    /**
+     * 分号(中文)
+     */
+    public static final String SEMICOLON_C = "；";
+
+    /**
+     * #
+     */
+    public static final String JING = "#";
 }

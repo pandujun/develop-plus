@@ -18,6 +18,8 @@ public class NumberConstant {
     public static int SEVEN_NUM = 7;
     public static int EIGHT_NUM = 8;
     public static int NINE_NUM = 9;
+    public static int HUNDRED_NUM = 100;
+    public static int THOUSAND_NUM = 1000;
 
     public static String ZERO_STR = "0";
     public static String ONE_STR = "1";
@@ -29,4 +31,6 @@ public class NumberConstant {
     public static String SEVEN_STR = "7";
     public static String EIGHT_STR = "8";
     public static String NINE_STR = "9";
+    public static String HUNDRED_STR = "100";
+    public static String THOUSAND_STR = "1000";
 }

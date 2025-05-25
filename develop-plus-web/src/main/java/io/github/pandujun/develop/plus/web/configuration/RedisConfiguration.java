@@ -1,5 +1,6 @@
 package io.github.pandujun.develop.plus.web.configuration;
 
+import io.github.pandujun.develop.plus.core.constant.CommonSymbolConstant;
 import io.github.pandujun.develop.plus.web.bean.RedisBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -58,7 +59,7 @@ public class RedisConfiguration {
 
         @Override
         public byte[] serialize(String string) {
-            return super.serialize(prefix + ":" + string);
+            return super.serialize(prefix + CommonSymbolConstant.COLON_E + string);
         }
     }
 

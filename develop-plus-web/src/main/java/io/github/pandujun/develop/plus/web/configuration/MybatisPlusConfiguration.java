@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.IllegalSQLInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import io.github.pandujun.develop.plus.core.constant.NumberConstant;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,7 +55,7 @@ public class MybatisPlusConfiguration {
      */
     private PaginationInnerInterceptor getPaginationInnerInterceptor() {
         PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MARIADB);
-        paginationInnerInterceptor.setMaxLimit(10000L);
+        paginationInnerInterceptor.setMaxLimit((long) NumberConstant.HUNDRED_NUM * NumberConstant.HUNDRED_NUM);
         return paginationInnerInterceptor;
     }
 }

@@ -1,5 +1,6 @@
 package io.github.pandujun.develop.plus.web.advice;
 
+import io.github.pandujun.develop.plus.core.constant.CommonPathConstant;
 import io.github.pandujun.develop.plus.core.constant.HeaderIgnoreAutoPackageConstant;
 import io.github.pandujun.develop.plus.core.result.Result;
 import io.github.pandujun.develop.plus.core.utils.GsonUtils;
@@ -33,7 +34,7 @@ public class AutoPackagingResponseBodyAdvice implements ResponseBodyAdvice<Objec
     public Object beforeBodyWrite(Object returnValue, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType, @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, @NonNull ServerHttpResponse response) {
         //swagger相关接口不处理
         String path = request.getURI().getPath();
-        if (path.contains("api-docs") || path.contains("swagger-resources")) {
+        if (path.contains(CommonPathConstant.SWAGGER_PATH_CONTAINS) || path.contains(CommonPathConstant.SWAGGER_RESOURCES_CONTAINS)) {
             return returnValue;
         }
         //feign之间调用
