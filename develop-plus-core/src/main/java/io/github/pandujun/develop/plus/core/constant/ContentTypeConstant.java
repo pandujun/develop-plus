@@ -1,7 +1,5 @@
 package io.github.pandujun.develop.plus.core.constant;
 
-import javax.swing.plaf.PanelUI;
-
 /**
  * 内容类型相关常量池
  * </P>
