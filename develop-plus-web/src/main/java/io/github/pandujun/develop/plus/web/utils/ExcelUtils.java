@@ -1,6 +1,7 @@
 package io.github.pandujun.develop.plus.web.utils;
 
 import cn.idev.excel.EasyExcel;
+import cn.idev.excel.ExcelWriter;
 import cn.idev.excel.FastExcel;
 import cn.idev.excel.annotation.ExcelProperty;
 import cn.idev.excel.context.AnalysisContext;
@@ -8,16 +9,18 @@ import cn.idev.excel.metadata.data.ReadCellData;
 import cn.idev.excel.read.listener.ReadListener;
 import cn.idev.excel.util.ListUtils;
 import cn.idev.excel.write.builder.ExcelWriterSheetBuilder;
-import cn.idev.excel.write.handler.WriteHandler;
 import io.github.pandujun.develop.plus.core.constant.CommonSymbolConstant;
 import io.github.pandujun.develop.plus.core.constant.ContentTypeConstant;
 import io.github.pandujun.develop.plus.core.constant.FileSuffixConstant;
 import io.github.pandujun.develop.plus.core.constant.NumberConstant;
 import io.github.pandujun.develop.plus.core.result.ResultEnums;
+import io.github.pandujun.develop.plus.web.bo.ExcelExportInfoBO;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -34,64 +37,58 @@ import java.util.function.Function;
 
 public class ExcelUtils {
     private static final Logger logger = LoggerFactory.getLogger(ExcelUtils.class);
+    private static final String SUFFIX_EXCEL_XLSX = CommonSymbolConstant.DOT + FileSuffixConstant.EXCEL_XLSX;
     private static final List<String> EXCEL_SUFFIX_LIST = List.of(
             CommonSymbolConstant.DOT + FileSuffixConstant.EXCEL_XLS,
-            CommonSymbolConstant.DOT + FileSuffixConstant.EXCEL_XLSX);
+            SUFFIX_EXCEL_XLSX);
+    private static final String DEFAULT_SHEET_NAME = "sheet";
 
-    /**
-     * 导出excel
-     *
-     * @param response 响应流
-     * @param fileName 文件名称
-     * @param clazz 数据类型class
-     * @param list 导出数据
-     * @param sheetName sheet名称
-     * @param writeHandler 写入拦截器
-     */
-    public static void exportExcel(HttpServletResponse response, String fileName, Class<?> clazz, List<?> list, String sheetName, WriteHandler writeHandler) {
+
+    public static void exportExcel(HttpServletResponse response, String fileName, @Validated ExcelExportInfoBO excelExportInfoBO) {
         response.setContentType(ContentTypeConstant.CONTENT_TYPE_EXCEL);
         response.setCharacterEncoding(ContentTypeConstant.ENCODE_UTF_8);
         fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
-        response.setHeader(ContentTypeConstant.HEADER_CONTENT_DISPOSITION, "attachment;filename=''" + fileName + CommonSymbolConstant.DOT + FileSuffixConstant.EXCEL_XLSX);
+        response.setHeader(ContentTypeConstant.HEADER_CONTENT_DISPOSITION, "attachment;filename=" + fileName + SUFFIX_EXCEL_XLSX);
 
         try {
-            ExcelWriterSheetBuilder excelWriterSheetBuilder = EasyExcel.write(response.getOutputStream(), clazz)
-                    .sheet(sheetName);
-            if (Objects.nonNull(writeHandler)) {
-                excelWriterSheetBuilder.registerWriteHandler(writeHandler);
+            ExcelWriterSheetBuilder excelWriterSheetBuilder = EasyExcel.write(response.getOutputStream(), excelExportInfoBO.getClazz())
+                    .sheet(StringUtils.hasLength(excelExportInfoBO.getSheetName()) ? excelExportInfoBO.getSheetName() : DEFAULT_SHEET_NAME);
+            if (Objects.nonNull(excelExportInfoBO.getWriteHandler())) {
+                excelWriterSheetBuilder.registerWriteHandler(excelExportInfoBO.getWriteHandler());
             }
-            excelWriterSheetBuilder.doWrite(CollectionUtils.isEmpty(list) ? Collections.emptyList() : list);
+            excelWriterSheetBuilder.doWrite(CollectionUtils.isEmpty(excelExportInfoBO.getList()) ? Collections.emptyList() : excelExportInfoBO.getList());
         } catch (IOException e) {
             logger.error("ExcelUtils#exportExcel ERROR：", e);
             throw ResultEnums.WRITE_ERROR.getException();
         }
     }
 
-    /**
-     * 导出excel
-     *
-     * @param response     响应流
-     * @param fileName     文件名称
-     * @param clazz        数据类型class
-     * @param list         导出数据
-     * @param writeHandler 写入拦截器
-     */
-    public static void exportExcel(HttpServletResponse response, String fileName, Class<?> clazz, List<?> list, WriteHandler writeHandler) {
-        exportExcel(response, fileName, clazz, list, "sheet1", writeHandler);
-    }
+    public static void exportExcelBatch(HttpServletResponse response, String fileName, @Validated List<ExcelExportInfoBO> excelExportInfoBOList) {
+        response.setContentType(ContentTypeConstant.CONTENT_TYPE_EXCEL);
+        response.setCharacterEncoding(ContentTypeConstant.ENCODE_UTF_8);
+        fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+        response.setHeader(ContentTypeConstant.HEADER_CONTENT_DISPOSITION, "attachment;filename=" + fileName + SUFFIX_EXCEL_XLSX);
 
-    /**
-     * 导出excel
-     *
-     * @param response 响应流
-     * @param fileName 文件名称
-     * @param clazz 数据类型class
-     * @param list 导出数据
-     */
-    public static void exportExcel(HttpServletResponse response, String fileName, Class<?> clazz, List<?> list) {
-        exportExcel(response, fileName, clazz, list, "sheet1", null);
+        try {
+            ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream()).build();
+            for (int i = 0; i < excelExportInfoBOList.size(); i++) {
+                ExcelExportInfoBO excelExportInfoBO = excelExportInfoBOList.get(i);
+                String sheetName = StringUtils.hasLength(excelExportInfoBO.getSheetName()) ? excelExportInfoBO.getSheetName() : (DEFAULT_SHEET_NAME + (i + 1));
+                List<?> list = CollectionUtils.isEmpty(excelExportInfoBO.getList()) ? Collections.emptyList() : excelExportInfoBO.getList();
+                ExcelWriterSheetBuilder excelWriterSheetBuilder = EasyExcel
+                        .writerSheet(0, sheetName)
+                        .head(excelExportInfoBO.getClazz());
+                if (Objects.nonNull(excelExportInfoBO.getWriteHandler())) {
+                    excelWriterSheetBuilder.registerWriteHandler(excelExportInfoBO.getWriteHandler());
+                }
+                excelWriter.write(list, excelWriterSheetBuilder.build());
+            }
+            excelWriter.finish();
+        } catch (IOException e) {
+            logger.error("ExcelUtils#exportExcelBath ERROR：", e);
+            throw ResultEnums.WRITE_ERROR.getException();
+        }
     }
-
 
     /**
      * 导入文件
