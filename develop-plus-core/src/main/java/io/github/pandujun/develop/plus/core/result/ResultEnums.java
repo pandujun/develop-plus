@@ -28,7 +28,10 @@ public enum ResultEnums implements ResultException {
     SECURE_ERROR(610, "加解密失败"),
     CHANGE_ERROR(611, "转换失败"),
     WRITE_ERROR(612, "写入失败"),
-    HTTP_ERROR(700, "请求异常");
+    HTTP_ERROR(700, "请求异常"),
+
+    NOT_LOGIN(1001, "未登录"),
+    LOGIN_ERROR(1002, "登录失败");
 
     private final int code;
     private final String msg;
