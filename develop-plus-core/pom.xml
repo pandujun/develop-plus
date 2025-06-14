@@ -8,7 +8,9 @@
     </parent>
 
     <artifactId>develop-plus-core</artifactId>
-    <version>${develop-plus-core.version}</version>
+    <version>${common-develop-plus.version}</version>
+
+    <name>develop-plus-core</name>
     <description>develop-plus-core</description>
     <url>https://github.com/pandujun/develop-plus.git</url>
 

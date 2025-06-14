@@ -4,9 +4,11 @@
     <groupId>io.github.pandujun</groupId>
     <artifactId>develop-plus</artifactId>
     <version>1.0.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>develop-plus</name>
     <description>develop-plus</description>
     <url>https://github.com/pandujun/develop-plus.git</url>
-    <packaging>pom</packaging>
 
     <!--用于发布：开源协议...-->
     <licenses>
@@ -40,10 +42,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-resources-plugin>3.2.0</maven-resources-plugin>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+        <central-publishing-maven-plugin>0.7.0</central-publishing-maven-plugin>
+
         <!--内部服务-->
-        <develop-plus-core.version>1.0.2-SNAPSHOT</develop-plus-core.version>
-        <develop-plus-feign.version>1.0.2-SNAPSHOT</develop-plus-feign.version>
-        <develop-plus-web.version>1.0.2-SNAPSHOT</develop-plus-web.version>
+        <common-develop-plus.version>1.0.2-SNAPSHOT</common-develop-plus.version>
     </properties>
 
     <modules>
@@ -58,19 +65,19 @@
             <dependency>
                 <groupId>io.github.pandujun</groupId>
                 <artifactId>develop-plus-core</artifactId>
-                <version>${develop-plus-core.version}</version>
+                <version>${common-develop-plus.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.pandujun</groupId>
                 <artifactId>develop-plus-feign</artifactId>
-                <version>${develop-plus-feign.version}</version>
+                <version>${common-develop-plus.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.pandujun</groupId>
                 <artifactId>develop-plus-web</artifactId>
-                <version>${develop-plus-web.version}</version>
+                <version>${common-develop-plus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -80,7 +87,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -89,7 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${maven-resources-plugin}</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <resources>
@@ -104,18 +111,17 @@
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.4.0</version>
+                <version>${central-publishing-maven-plugin}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>develop-plus</publishingServerId>
-                    <tokenAuth>true</tokenAuth>
                 </configuration>
             </plugin>
             <!--   source源码插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -129,7 +135,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <charset>UTF-8</charset>
                     <encoding>UTF-8</encoding>
@@ -150,7 +156,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
+                <version>${maven-gpg-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
