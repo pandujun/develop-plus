@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.pandujun</groupId>
     <artifactId>develop-plus</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>develop-plus</name>
@@ -50,7 +50,7 @@
         <central-publishing-maven-plugin>0.7.0</central-publishing-maven-plugin>
 
         <!--内部服务-->
-        <common-develop-plus.version>1.0.2-SNAPSHOT</common-develop-plus.version>
+        <common-develop-plus.version>1.0.2.RELEASE</common-develop-plus.version>
     </properties>
 
     <modules>
