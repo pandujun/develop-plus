@@ -64,14 +64,14 @@ public class RedisBean {
     /**
      * 设置一个key的过期时间
      */
-    public Boolean export(String key, Long time, TimeUnit timeUnit) {
+    public Boolean expire(String key, Long time, TimeUnit timeUnit) {
         return redisTemplate.expire(key, time, timeUnit);
     }
 
     /**
      * 获取一个key的剩余时间
      */
-    public Long getExportTime(String key) {
+    public Long getExpireTime(String key) {
         return redisTemplate.getExpire(key);
     }
 
@@ -89,7 +89,7 @@ public class RedisBean {
      */
     public void cacheHashValue(String key, String hashKey, String value, Long time, TimeUnit timeUnit) {
         redisTemplate.opsForHash().put(key, hashKey, value);
-        this.export(key, time, timeUnit);
+        this.expire(key, time, timeUnit);
     }
 
     /**
@@ -141,7 +141,7 @@ public class RedisBean {
     public Boolean cacheSet(String key, String value, Long time, TimeUnit timeUnit) {
         Long addFlag = redisTemplate.opsForSet().add(key, value);
         if (addFlag != null && addFlag > NumberConstant.ZERO_NUM) {
-            return this.export(key, time, timeUnit);
+            return this.expire(key, time, timeUnit);
         }
         return false;
     }
