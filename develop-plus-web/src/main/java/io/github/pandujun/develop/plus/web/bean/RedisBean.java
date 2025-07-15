@@ -34,6 +34,13 @@ public class RedisBean {
     }
 
     /**
+     * 获取一个key的剩余时间(秒)
+     */
+    public Long getExpireTime(String key) {
+        return redisTemplate.getExpire(key);
+    }
+
+    /**
      * 缓存一个key
      */
     public void cache(String key, String value) {
@@ -45,6 +52,23 @@ public class RedisBean {
      */
     public void cache(String key, String value, Long time, TimeUnit timeUnit) {
         redisTemplate.opsForValue().set(key, value, time, timeUnit);
+    }
+
+    /**
+     * 缓存一个key 自增
+     *
+     * @param key   key
+     * @param value 自增长度
+     */
+    public void cacheIncr(String key, long value) {
+        redisTemplate.opsForValue().increment(key, value);
+    }
+
+    /**
+     * 设置一个key的过期时间
+     */
+    public Boolean cacheExpire(String key, Long time, TimeUnit timeUnit) {
+        return redisTemplate.expire(key, time, timeUnit);
     }
 
     /**
@@ -61,44 +85,7 @@ public class RedisBean {
         return redisTemplate.delete(keys);
     }
 
-    /**
-     * 设置一个key的过期时间
-     */
-    public Boolean expire(String key, Long time, TimeUnit timeUnit) {
-        return redisTemplate.expire(key, time, timeUnit);
-    }
-
-    /**
-     * 获取一个key的剩余时间
-     */
-    public Long getExpireTime(String key) {
-        return redisTemplate.getExpire(key);
-    }
-
-    //========================== HASH ==============================
-
-    /**
-     * 缓存一个hash key
-     */
-    public void cacheHashValue(String key, String hashKey, String value) {
-        redisTemplate.opsForHash().put(key, hashKey, value);
-    }
-
-    /**
-     * 缓存一个hash key，并设置过期时间
-     */
-    public void cacheHashValue(String key, String hashKey, String value, Long time, TimeUnit timeUnit) {
-        redisTemplate.opsForHash().put(key, hashKey, value);
-        this.expire(key, time, timeUnit);
-    }
-
-    /**
-     *  缓存一个hash key 自增
-     */
-    public Long cacheHashValueIncr(String key, String hashKey, long value) {
-        return redisTemplate.opsForHash().increment(key, hashKey, value);
-    }
-
+    //========================== HASH ============================== HASH ============================== HASH ==============================
     /**
      * 根据key和hashKey获取具体值
      */
@@ -120,6 +107,39 @@ public class RedisBean {
     }
 
     /**
+     * 缓存一个hash key
+     */
+    public void cacheHashValue(String key, String hashKey, String value) {
+        redisTemplate.opsForHash().put(key, hashKey, value);
+    }
+
+    /**
+     * 缓存一个hash key，并设置过期时间
+     */
+    public void cacheHashValue(String key, String hashKey, String value, Long time, TimeUnit timeUnit) {
+        redisTemplate.opsForHash().put(key, hashKey, value);
+        this.cacheExpire(key, time, timeUnit);
+    }
+
+    /**
+     *  缓存一个hash key 自增
+     */
+    public Long cacheHashValueIncr(String key, String hashKey, long value) {
+        return redisTemplate.opsForHash().increment(key, hashKey, value);
+    }
+
+    /**
+     * 校验hash对应的数据是否存在
+     *
+     * @param key     key
+     * @param hashKey hashKey
+     * @return true -> 存在；false -> 不存在
+     */
+    public Boolean checkHashExists(String key, String hashKey) {
+        return redisTemplate.opsForHash().hasKey(key, hashKey);
+    }
+
+    /**
      * 根据key和hashKey，删除缓存
      */
     public Long deleteHashValue(String key, Object... hashKeys) {
@@ -127,6 +147,13 @@ public class RedisBean {
     }
 
     //========================== SET ==============================
+
+    /**
+     * 获取set对应的数据
+     */
+    public Set<String> getSetValue(String key) {
+        return redisTemplate.opsForSet().members(key);
+    }
 
     /**
      * 缓存一个set
@@ -141,16 +168,20 @@ public class RedisBean {
     public Boolean cacheSet(String key, String value, Long time, TimeUnit timeUnit) {
         Long addFlag = redisTemplate.opsForSet().add(key, value);
         if (addFlag != null && addFlag > NumberConstant.ZERO_NUM) {
-            return this.expire(key, time, timeUnit);
+            return this.cacheExpire(key, time, timeUnit);
         }
         return false;
     }
 
     /**
-     * 获取set对应的数据
+     * 校验set对应的数据是否存在
+     *
+     * @param key   set-key
+     * @param value 值
+     * @return true -> 存在；false -> 不存在
      */
-    public Set<String> getSetValue(String key) {
-        return redisTemplate.opsForSet().members(key);
+    public Boolean checkSetExists(String key, String value) {
+        return redisTemplate.opsForSet().isMember(key, value);
     }
 
     /**
