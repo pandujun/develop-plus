@@ -3,7 +3,6 @@ package io.github.pandujun.develop.plus.web.configuration;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.IllegalSQLInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import io.github.pandujun.develop.plus.core.constant.NumberConstant;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -43,8 +42,6 @@ public class MybatisPlusConfiguration {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         //分页插件
         interceptor.addInnerInterceptor(this.getPaginationInnerInterceptor());
-        // 添加非法SQL拦截器
-        interceptor.addInnerInterceptor(new IllegalSQLInnerInterceptor());
         //添加防止全表更新与删除插件
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;
