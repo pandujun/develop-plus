@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.pandujun</groupId>
     <artifactId>develop-plus</artifactId>
-    <version>1.0.2.RELEASE</version>
+    <version>1.1.0.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>develop-plus</name>
@@ -49,8 +49,14 @@
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <central-publishing-maven-plugin>0.7.0</central-publishing-maven-plugin>
 
+        <!--主要BOM-->
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
+        <spring-boot.version>3.4.5</spring-boot.version>
+        <spring-cloud.version>2024.0.2</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.3.3</spring-cloud-alibaba.version>
+
         <!--内部服务-->
-        <common-develop-plus.version>1.0.2.RELEASE</common-develop-plus.version>
+        <common-develop-plus.version>1.1.0.RELEASE</common-develop-plus.version>
     </properties>
 
     <modules>
@@ -78,6 +84,34 @@
                 <groupId>io.github.pandujun</groupId>
                 <artifactId>develop-plus-web</artifactId>
                 <version>${common-develop-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-bom</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
