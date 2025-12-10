@@ -25,7 +25,7 @@
         <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
 
         <!--外部工具-->
-        <fastexcel.version>1.1.0</fastexcel.version>
+        <fastexcel.version>1.2.0</fastexcel.version>
         <pingyin4j.version>2.5.1</pingyin4j.version>
         <xstream.version>1.4.21</xstream.version>
         <fastexcel.version>1.1.0</fastexcel.version>
