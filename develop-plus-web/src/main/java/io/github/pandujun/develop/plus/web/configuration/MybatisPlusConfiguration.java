@@ -1,14 +1,20 @@
 package io.github.pandujun.develop.plus.web.configuration;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.IllegalSQLInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import io.github.pandujun.develop.plus.core.constant.NumberConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.net.InetAddress;
 
 /**
  * mybatis-plus配置
@@ -20,6 +26,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass(MybatisPlusInterceptor.class)
 public class MybatisPlusConfiguration {
+    private static final Logger logger = LoggerFactory.getLogger(MybatisPlusConfiguration.class);
+
     /**
      * 目前，MyBatis-Plus 提供了以下插件：
      * <p>
@@ -57,5 +65,37 @@ public class MybatisPlusConfiguration {
         PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MARIADB);
         paginationInnerInterceptor.setMaxLimit((long) NumberConstant.HUNDRED_NUM * NumberConstant.HUNDRED_NUM);
         return paginationInnerInterceptor;
+    }
+
+
+    @Bean
+    public IdentifierGenerator identifierGenerator() {
+        long workerId = this.getWorkerId();
+        long datacenterId = this.getDatacenterId();
+        logger.info("mybatis ==》workerId: {}, datacenterId: {}", workerId, datacenterId);
+        return new DefaultIdentifierGenerator(workerId, datacenterId);
+    }
+
+    private long getWorkerId() {
+        try {
+            // 优先从环境变量获取
+            String workerIdStr = System.getenv("WORKER_ID");
+            if (workerIdStr != null) {
+                return Long.parseLong(workerIdStr);
+            }
+
+            // 从IP最后一段取模（0-31）
+            String ip = InetAddress.getLocalHost().getHostAddress();
+            int ipLastSegment = Integer.parseInt(ip.split("\\.")[3]);
+            return ipLastSegment % 32;
+        } catch (Exception e) {
+            logger.warn("获取workerId失败，使用默认值1", e);
+            return 1;
+        }
+    }
+
+    private long getDatacenterId() {
+        // 你可以用同样的方式计算dataCenterId，或者直接固定为1
+        return (long) (Math.random() * 31) + 1;
     }
 }
