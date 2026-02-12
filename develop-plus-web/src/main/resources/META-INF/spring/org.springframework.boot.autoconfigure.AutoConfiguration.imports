@@ -2,4 +2,4 @@ io.github.pandujun.develop.plus.web.utils.SpringUtils
 io.github.pandujun.develop.plus.web.configuration.CommonConfiguration
 io.github.pandujun.develop.plus.web.configuration.MybatisPlusConfiguration
 io.github.pandujun.develop.plus.web.configuration.RedisConfiguration
-io.github.pandujun.develop.plus.web.configuration.RedisConfiguration
+io.github.pandujun.develop.plus.web.configuration.RequestConfig

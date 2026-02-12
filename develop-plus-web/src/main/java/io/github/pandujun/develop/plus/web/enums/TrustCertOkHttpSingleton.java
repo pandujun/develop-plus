@@ -1,4 +1,4 @@
-package io.github.pandujun.develop.plus.web.configuration;
+package io.github.pandujun.develop.plus.web.enums;
 
 import okhttp3.OkHttpClient;
 import org.springframework.util.StringUtils;

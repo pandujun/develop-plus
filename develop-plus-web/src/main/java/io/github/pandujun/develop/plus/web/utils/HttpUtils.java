@@ -9,7 +9,7 @@ import io.github.pandujun.develop.plus.core.utils.GsonUtils;
 import io.github.pandujun.develop.plus.web.bean.RedisNoPrefixClient;
 import io.github.pandujun.develop.plus.web.bo.ProxyInfoBO;
 import io.github.pandujun.develop.plus.web.configuration.RequestConfig;
-import io.github.pandujun.develop.plus.web.configuration.TrustCertOkHttpSingleton;
+import io.github.pandujun.develop.plus.web.enums.TrustCertOkHttpSingleton;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
