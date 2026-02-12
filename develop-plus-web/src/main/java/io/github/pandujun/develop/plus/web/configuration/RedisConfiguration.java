@@ -1,7 +1,8 @@
 package io.github.pandujun.develop.plus.web.configuration;
 
 import io.github.pandujun.develop.plus.core.constant.CommonSymbolConstant;
-import io.github.pandujun.develop.plus.web.bean.RedisBean;
+import io.github.pandujun.develop.plus.web.bean.RedisClient;
+import io.github.pandujun.develop.plus.web.bean.RedisNoPrefixClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -31,15 +32,15 @@ public class RedisConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public RedisBean redisBean(StringRedisTemplate stringRedisTemplate) {
+    public RedisClient redisBean(StringRedisTemplate stringRedisTemplate) {
         stringRedisTemplate.setKeySerializer(new PrefixStringRedisSerializer(projectName));
-        return new RedisBean(stringRedisTemplate);
+        return new RedisClient(stringRedisTemplate);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public NoPrefixStringRedisTemplate noPrefixStringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        return new NoPrefixStringRedisTemplate(redisConnectionFactory);
+    public RedisNoPrefixClient redisNoPrefixClient(RedisConnectionFactory redisConnectionFactory) {
+        return new RedisNoPrefixClient(new NoPrefixStringRedisTemplate(redisConnectionFactory));
     }
 
     /**

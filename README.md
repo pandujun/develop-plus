@@ -22,6 +22,7 @@
             - 分页插件【分页最大数10000】
             - 非法SQL拦截器
             - 防止全表更新与删除插件
+          - 添加workerId与datacenterId随机
         - 工具类：
             - RedisUtils：redis工具类（bean注入）
             - ChineseCharToEnUtils：中文转为拼音工具类

@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.Objects;
 
 /**
@@ -26,8 +28,11 @@ public enum GsonSingleton {
     public Gson getGson() {
         return (new GsonBuilder())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
-                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter()).
-                registerTypeAdapter(LocalTime.class, new LocalTimeTypeAdapter()).create();
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeTypeAdapter())
+                .registerTypeAdapter(YearMonth.class, new YearMonthTypeAdapter())
+                .registerTypeAdapter(Year.class, new YearTypeAdapter())
+                .create();
     }
 
     /**
@@ -100,6 +105,56 @@ public enum GsonSingleton {
             if (Objects.nonNull(value) && !value.trim().isEmpty()) {
                 return LocalTime.parse(value, DatePatternConstant.H_M_S_NORMAL_PATTERN);
             }else {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * YearMonth 适配器
+     */
+    private static class YearMonthTypeAdapter extends TypeAdapter<YearMonth> {
+        @Override
+        public void write(JsonWriter jsonWriter, YearMonth yearMonth) throws IOException {
+            if (Objects.nonNull(yearMonth)) {
+                String yearMonthStr = yearMonth.format(DatePatternConstant.Y_M_NORMAL_PATTERN);
+                jsonWriter.value(yearMonthStr);
+            } else {
+                jsonWriter.nullValue();
+            }
+        }
+
+        @Override
+        public YearMonth read(JsonReader jsonReader) throws IOException {
+            String value = jsonReader.nextString();
+            if (Objects.nonNull(value) && !value.trim().isEmpty()) {
+                return YearMonth.parse(value, DatePatternConstant.Y_M_NORMAL_PATTERN);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * 年份适配器
+     */
+    private static class YearTypeAdapter extends TypeAdapter<Year> {
+        @Override
+        public void write(JsonWriter jsonWriter, Year year) throws IOException {
+            if (Objects.nonNull(year)) {
+                String yearStr = year.format(DatePatternConstant.Y_NORMAL_PATTERN);
+                jsonWriter.value(yearStr);
+            } else {
+                jsonWriter.nullValue();
+            }
+        }
+
+        @Override
+        public Year read(JsonReader jsonReader) throws IOException {
+            String value = jsonReader.nextString();
+            if (Objects.nonNull(value) && !value.trim().isEmpty()) {
+                return Year.parse(value, DatePatternConstant.Y_NORMAL_PATTERN);
+            } else {
                 return null;
             }
         }

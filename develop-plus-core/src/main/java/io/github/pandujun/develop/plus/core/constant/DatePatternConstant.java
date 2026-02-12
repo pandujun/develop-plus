@@ -32,6 +32,16 @@ public class DatePatternConstant {
     public static final String Y_M_D_ONLY = "yyyyMMdd";
     public static final DateTimeFormatter Y_M_D_ONLY_PATTERN = createFormatter(Y_M_D_ONLY);
 
+    public static final String Y_M_NORMAL = "yyyy-MM";
+    public static final DateTimeFormatter Y_M_NORMAL_PATTERN = createFormatter(Y_M_NORMAL);
+
+    public static final String Y_M_SLASH = "yyyy/MM";
+    public static final DateTimeFormatter Y_M_SLASH_PATTERN = createFormatter(Y_M_SLASH);
+
+    public static final String Y_NORMAL = "yyyy";
+    public static final DateTimeFormatter Y_NORMAL_PATTERN = createFormatter(Y_NORMAL);
+
+
     /**
      * 创建一个DateTimeFormatter
      *
