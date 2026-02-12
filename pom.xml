@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.pandujun</groupId>
     <artifactId>develop-plus</artifactId>
-    <version>1.0.4.RELEASE</version>
+    <version>1.0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>develop-plus</name>
@@ -50,7 +50,9 @@
         <central-publishing-maven-plugin>0.7.0</central-publishing-maven-plugin>
 
         <!--内部服务-->
-        <common-develop-plus.version>1.0.4.RELEASE</common-develop-plus.version>
+        <develop-plus-core.version>1.0.5-SNAPSHOT</develop-plus-core.version>
+        <develop-plus-feign.version>1.0.5-SNAPSHOT</develop-plus-feign.version>
+        <develop-plus-web.version>1.0.5-SNAPSHOT</develop-plus-web.version>
     </properties>
 
     <modules>
@@ -65,19 +67,19 @@
             <dependency>
                 <groupId>io.github.pandujun</groupId>
                 <artifactId>develop-plus-core</artifactId>
-                <version>${common-develop-plus.version}</version>
+                <version>${develop-plus-core.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.pandujun</groupId>
                 <artifactId>develop-plus-feign</artifactId>
-                <version>${common-develop-plus.version}</version>
+                <version>${develop-plus-feign.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.pandujun</groupId>
                 <artifactId>develop-plus-web</artifactId>
-                <version>${common-develop-plus.version}</version>
+                <version>${develop-plus-web.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
